@@ -1,3 +1,4 @@
 setuptools
 django
 psycopg2-binary
+PILLOW

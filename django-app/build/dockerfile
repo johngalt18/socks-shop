@@ -7,9 +7,12 @@ RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get update & apt-get install -y python3.8 \
 	python3.8-dev \
 	python3.8-distutils \
-	python3-pip
+	python3-pip \
+	python3-wheel
 
 RUN rm -rf /var/lib/apt/lists/*
+
+#RUN pip3 install --force-reinstall --upgrade pip
 
 RUN python3.8 -m pip install --upgrade pip
 
@@ -18,3 +21,5 @@ COPY ./requirements .
 RUN chmod +x ./requirements
 
 RUN pip3 install -r requirements
+
+WORKDIR "/app"

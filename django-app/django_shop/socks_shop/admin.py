@@ -1,20 +1,20 @@
 from django.contrib import admin
-from .models import Socks, Instance
+from .models import Socks, Stock
 
 
 class AdminSocks(admin.ModelAdmin):
-    list_display = ['name', 'available', 'slug', 'price']
-    list_filter = ['available', 'price']
-    list_editable = ['price']
+    list_display = ['available', 'price', 'color', 'slug', 'name']
+    list_filter = ['available', 'price', 'color']
+    list_editable = ['price', 'color']
+
     prepopulated_fields = {'slug': ('name', )}
 
 
-class AdminInstances(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'price', 'size', 'stock', 'available']
-    list_filter = ['available', 'price', 'size']
-    list_editable = ['stock', 'available', 'size']
-    prepopulated_fields = {'slug': ('name',)}
+class AdminStock(admin.ModelAdmin):
+    list_display = ['name', 'size', 'amount']
+    list_filter = ['name', 'size', 'amount']
+    list_editable = ['size', 'amount']
 
 
 admin.site.register(Socks, AdminSocks)
-admin.site.register(Instance, AdminInstances)
+admin.site.register(Stock, AdminStock)

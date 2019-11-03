@@ -4,6 +4,6 @@ from .models import Socks
 
 
 def return_items(request):
-    items = ['123', '3', 't645', '756']
+    items = Socks.objects.all()
 
     return render(request=request, template_name='socks_shop/index.html', context={'items': items})

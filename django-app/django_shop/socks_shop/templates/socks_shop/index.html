@@ -1,0 +1,14 @@
+{% extends 'socks_shop/base_page.html' %}
+
+{% block title %}
+    asd
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-5">Список товаров:</h1>
+    {% for item in items %}
+    <p>
+        {{ item }}
+    </p>
+    {% endfor %}
+{% endblock %}

@@ -5,9 +5,9 @@ from django.utils.safestring import mark_safe
 
 class AdminSocks(admin.ModelAdmin):
     fields = ('image_tag', )
-    list_display = ['available', 'price', 'color', 'slug', 'name', 'image', 'image_tag']
-    list_filter = ['available', 'price', 'color']
-    list_editable = ['price', 'color', 'image']
+    list_display = ['available', 'price', 'description', 'color', 'slug', 'name', 'image', 'image_tag']
+    list_filter = ['available', 'description', 'price', 'color']
+    list_editable = ['price', 'description', 'color', 'image']
     readonly_fields = ('image_tag', )
 
     prepopulated_fields = {'slug': ('name', )}

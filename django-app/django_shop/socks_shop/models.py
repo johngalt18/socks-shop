@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.utils.safestring import mark_safe
 
@@ -7,7 +9,7 @@ class Socks(models.Model):
     slug = models.SlugField(max_length=30, db_index=True, unique=True)
     image = models.ImageField(upload_to='images/%Y/%m/%D/', blank=True, null=True, verbose_name="Изображение товара")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
-    description = models.TextField(blank=True, verbose_name="Описание")
+    description = models.TextField(blank=True, verbose_name="Описание", null=False, default="")
     available = models.BooleanField(default=True, verbose_name="Доступен")
     color = models.CharField(max_length=30, db_index=False, verbose_name="Цвет", null=True)
 

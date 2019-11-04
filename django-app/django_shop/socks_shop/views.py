@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Socks
+from django.shortcuts import render, get_object_or_404
+from .models import Socks, Stock
 
 
 def return_items(request):
@@ -10,4 +10,8 @@ def return_items(request):
 
 def item_detail(request, slug):
     item_details = Socks.objects.get(slug__iexact=slug)
-    return render(request=request, template_name='socks_shop/item_detail.html', context={'item_details': item_details})
+
+    stock = Stock.objects.filter(name=item_details)
+
+    return render(request=request, template_name='socks_shop/item_detail.html', context={'item_details': item_details,
+                                                                                         'stocks': stock})

@@ -37,7 +37,7 @@ class Socks(models.Model):
 
 
 class Stock(models.Model):
-    name = models.ForeignKey(Socks, on_delete=models.PROTECT, verbose_name="Наименование")
+    name = models.ForeignKey(Socks, on_delete=models.CASCADE, verbose_name="Наименование")
     amount = models.PositiveIntegerField(verbose_name="Количество")
     size = models.PositiveSmallIntegerField(verbose_name="Размер")
 

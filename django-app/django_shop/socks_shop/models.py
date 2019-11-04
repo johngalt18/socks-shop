@@ -1,7 +1,7 @@
-import os
-
 from django.db import models
 from django.utils.safestring import mark_safe
+
+from django.shortcuts import reverse
 
 
 class Socks(models.Model):
@@ -18,6 +18,9 @@ class Socks(models.Model):
             return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
         else:
             return 'No Image Found'
+
+    def get_absolute_url(self):
+        return reverse('item_details_url', kwargs={'slug': self.slug})
 
     image_tag.short_description = 'Image'
     image_tag.allow_tags = True

@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 
 
 class AdminSocks(admin.ModelAdmin):
-    fields = ('image_tag', )
+    fields = ('name', 'slug', 'description', 'price', 'color', 'image')
     list_display = ['available', 'price', 'description', 'color', 'slug', 'name', 'image', 'image_tag']
     list_filter = ['available', 'description', 'price', 'color']
     list_editable = ['price', 'description', 'color', 'image']

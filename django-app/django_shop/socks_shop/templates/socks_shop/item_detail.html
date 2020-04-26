@@ -1,7 +1,7 @@
 {% extends 'socks_shop/base_page.html' %}
 
 {% block content %}
-
+{% csrf_token %}
     <div class="card" style="width: 24rem;">
         {% if item_details.image %}
             <img class="card-img-top" src={{ item_details.image.url }} alt="Card image cap">
@@ -22,19 +22,57 @@
             </li>
             <li class="list-group-item">
                 Размеры в наличии:
-                <form method="GET" action="{{ stock }}">
-                    {% csrf_token %}
-                    <select name="stock">
+                <div>
+                    <select name="stock" id='stock'>
                         {% for stock in stocks %}
                         <option>
                             {{ stock.size }}
                         </option>
                         {% endfor %}
                     </select>
-                    <input class="btn btn-primary" type="submit" value="Добавить в корзину">
-                </form>
+                    <input class="btn btn-primary" type="button" value="Добавить в корзину" onclick="addInBasket()">
+                </div>
             </li>
         </ul>
     </div>
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function addInBasket(){
+            let data = {
+                item_slug: "{{ item_details.slug }}",
+                stock: $("#stock").val(),
+            }
+            $.ajax({
+                url: "{% url 'add_in_basket_url' %}",
+                type: "POST",
+                headers: { 'X-CSRFToken': getCookie('csrftoken') },
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function(response){
+                    console.log('dasdasdasd')
+                    console.log(response)
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            })
+        }
+    </script>
 
 {% endblock %}

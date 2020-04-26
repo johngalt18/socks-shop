@@ -1,0 +1,51 @@
+{% extends 'socks_shop/base_page.html' %}
+{% block content %}
+    {% if items_in_basket %}
+        {% for item in items_in_basket %}
+            <div class="card mb-6 bg-light" style="max-width: 900px; border-style: dashed;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        {% if item.greed.image %}
+                            <img src="{{ item.greed.image.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                            <img src="https://rusnext.ru/sites/default/files/delaem-igrushku-iz-noska-3.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ item.greed.name }}
+                            </h5>
+                            <p class="card-text">
+                                {{ item.greed.description | linebreaks }}
+                            </p>
+                            <p class="card-text">
+                                {{ item.greed.price }} руб.
+                            </p>
+                            <div class="row no-gutters">
+                                <div class="col-md-4">размер</div>
+                                <div class="col-md-4">количество</div>
+                                <div class="col-md-4">сумма</div>
+                                {% for item in item.stock %}
+                                <div class="col-md-4">{{item.stock}}</div>
+                                <div class="col-md-4">x{{item.count}}</div>
+                                <div class="col-md-4">{{item.sum}} руб.</div>
+                                {% endfor %}
+                            </div>
+                            <hr/>
+                            <p align="right">Итого: {{item.sum}} руб.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <hr/>
+        <h3 align="right">К оплате: {{total_price}} руб.</h3>
+    {% else %}
+        <br>
+        <h4>Корзина пуста</h4>
+        <div class="row">
+            <p><a href="{% url 'list_of_items_url' %}">Вернуться к покупкам -></a></p>
+        </div>
+    {% endif %}
+{% endblock %}
